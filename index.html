@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>AI & 빅데이터 기반 인력 수요 및 현황 인사이트</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XRSZWXZB70"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XRSZWXZB70');
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-brand img {
+            height: 80px;
+        }
+        .navbar-text {
+            color: white !important;
+        }
+        .tab-content {
+            margin-top: 20px;
+        }
+        .network-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .network-graph {
+            width: 100%;
+            height: 95%;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .network-graph img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .community-select-container {
+            width: 50%;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px; 
+            margin-left: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+        h2 {
+            color: #343a40;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+        footer p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        footer .footer-info {
+            margin-top: 10px;
+        }
+        footer .footer-info span {
+            margin: 0 10px;
+        }
+        .llm-explain ul {
+            margin-bottom: 20px;
+        }
+        .llm-explain h2 {
+            margin-top: 30px;
+            font-size: 22px;
+            border-bottom: 2px solid #343a40;
+            padding-bottom: 5px;
+        }
+        .tab-container img {
+            max-width: 80%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-light">
+        <a class="navbar-brand" href="#">
+            <img src="./static/image/aik_logo.png" alt="Career Logo">
+        </a>
+        <h1 class="navbar-text mx-auto">AI & 빅데이터 기반 인력 수요 및 현황 인사이트</h1>
+    </nav>
+    <div class="container">
+        <br>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="llm-explain-tab" data-toggle="tab" href="#llm-explain" role="tab" aria-controls="llm-explain" aria-selected="true">현황 인사이트</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="region-tab" data-toggle="tab" href="#region" role="tab" aria-controls="region" aria-selected="false">지역별 채용 공고 수</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="industry-tab" data-toggle="tab" href="#industry" role="tab" aria-controls="industry" aria-selected="false">산업별 채용 비율</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="category-tab" data-toggle="tab" href="#category" role="tab" aria-controls="category" aria-selected="false">직무 카테고리 분포</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="salary-tab" data-toggle="tab" href="#salary" role="tab" aria-controls="salary" aria-selected="false">급여 분포</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="career-tab" data-toggle="tab" href="#career" role="tab" aria-controls="career" aria-selected="false">경력 요구사항 분포</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="word-network-tab" data-toggle="tab" href="#word-network" role="tab" aria-controls="word-network" aria-selected="false">워드 네트워크</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="llm-explain" role="tabpanel" aria-labelledby="llm-explain-tab">
+                <div class="llm-explain">
+                    <h2>주요 기술 및 트렌드</h2>
+                    <ul>
+                        <li><strong>자동차 및 AS 관련 산업:</strong>
+                            <ul>
+                                <li>A·S센터, 주유·LPG, 중정비 등이 주요 기술로 언급됨.</li><li>자동차 및 관련 유지보수 서비스에서 중정비와 주유소 관리가 중요한 기술로 요구됨. 전통적인 자동차 정비 기술에 대한 수요가 여전히 존재함.</li>
+                            </ul>
+                        </li>
+                        <li><strong>IT 컨설팅:</strong>
+                            <ul>
+                                <li>셋업, DW(Data Warehousing) 등의 데이터 관리 역량이 중요하게 여겨짐.</li><li>데이터 웨어하우징(DW) 및 시스템 셋업이 IT 컨설팅 분야에서 중요한 기술로 부각됨. 데이터 관리 및 분석 역량이 중요한 요소로 작용함.</li>
+                            </ul>
+                        </li>
+                        <li><strong>가구·목재·제지 산업:</strong>
+                            <ul>
+                                <li>부엌가구, 가구 등의 기술이 주요하게 언급됨.</li><li>가구 제조업에서 부엌가구와 관련된 기술이 특히 중요하게 평가됨. 맞춤형 가구 제작 기술의 수요가 높은 것으로 나타남.</li>
+                            </ul>
+                        </li>
+                        <li><strong>건설·건축·토목·시공:</strong>
+                            <ul>
+                                <li>군건설, 건축, 도로·항만 관련 기술이 주요하게 언급됨.</li><li>대형 건설사(1군 건설)에서 요구되는 기술과 더불어 도로 및 항만 건설 관련 기술이 중요하게 나타남. 인프라 개발에 대한 수요가 지속적으로 증가하고 있음.</li>
+                            </ul>
+                        </li>
+                        <li><strong>게임 산업:</strong>
+                            <ul>
+                                <li>게임 개발, 게임 시나리오 작성의 기술이 주요하게 언급됨.</li><li>게임 개발과 시나리오 제작 기술이 게임 산업에서 중요한 요소로 평가됨. 창의적인 콘텐츠 개발 역량이 부각됨.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h2>결론</h2>
+                    <p>
+                        현재 채용 시장에서는 기술적인 역량(특히 데이터 관리 및 분석 역량, IT 컨설팅 관련 기술), 자동차 정비 기술, 그리고 대형 인프라 구축 기술의 보유 여부가 중요한 요소로 작용하고 있다.<br>또한, 해당 산업에 특화된 기술과 경험 외에도 창의성, 문제 해결 능력, 그리고 협업 능력이 중요한 평가 요소로 여겨지고 있다.<br>이러한 트렌드는 기업들이 업무의 정확성, 효율성, 그리고 급변하는 시장 환경에서의 경쟁력을 높이기 위해 이러한 기술과 특성을 가진 인재를 선호하고 있음을 반영하고 있다.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="region" role="tabpanel" aria-labelledby="region-tab">
+                <div class='tab-container' style="display: flex; justify-content: center; margin-top:20px;">
+                    <img src="./static/image/region_fig.png" alt="지역별 채용 공고 수" onclick="openModal(this.src)">
+                </div>
+            </div>
+            <div class="tab-pane fade" id="industry" role="tabpanel" aria-labelledby="industry-tab">
+                <div class='tab-container' style="display: flex; justify-content: center; margin-top:20px;">
+                    <img src="./static/image/industry_fig.png" alt="산업별 채용 비율" onclick="openModal(this.src)">
+                </div>
+            </div>
+            <div class="tab-pane fade" id="category" role="tabpanel" aria-labelledby="category-tab">
+                <div class='tab-container' style="display: flex; justify-content: center; margin-top:20px;">
+                    <img src="./static/image/category_fig.png" alt="직무 카테고리 분포" onclick="openModal(this.src)">
+                </div>
+            </div>
+            <div class="tab-pane fade" id="salary" role="tabpanel" aria-labelledby="salary-tab">
+                <div class='tab-container' style="display: flex; justify-content: center; margin-top:20px;">
+                    <img src="./static/image/salary_fig.png" alt="급여 분포" onclick="openModal(this.src)">
+                </div>
+            </div>
+            <div class="tab-pane fade" id="career" role="tabpanel" aria-labelledby="career-tab">
+                <div class='tab-container' style="display: flex; justify-content: center; margin-top:20px;">
+                    <img src="./static/image/career_fig.png" alt="경력 요구사항 분포" onclick="openModal(this.src)">
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="word-network" role="tabpanel" aria-labelledby="word-network-tab">
+                <div class="network-container">
+                    <div id="network-graph" class="network-graph">
+                        <img id="network-image" src="./static/image/network_all_240920.png" alt="전체 워드 네트워크" onclick="openModal(this.src)">
+                    </div>
+                    <div class="community-select-container">
+                        <h2>세부 그룹 선택</h2>
+                        <select id="community-select">
+                            <option value="all">전체 네트워크</option>
+                            <option value="._건설회사 관련 네트워크">._건설회사 관련 네트워크</option>
+                            <option value="._게임개발 관련 네트워크">._게임개발 관련 네트워크</option>
+                            <option value="._경정비 관련 네트워크">._경정비 관련 네트워크</option>
+                            <option value="._광고대행사 관련 네트워크">._광고대행사 관련 네트워크</option>
+                            <option value="._교재제작·출판 관련 네트워크">._교재제작·출판 관련 네트워크</option>
+                            <option value="._대학교 관련 네트워크">._대학교 관련 네트워크</option>
+                            <option value="._디자인회사 관련 네트워크">._디자인회사 관련 네트워크</option>
+                            <option value="._문화기획 관련 네트워크">._문화기획 관련 네트워크</option>
+                            <option value="._법률사무소 관련 네트워크">._법률사무소 관련 네트워크</option>
+                            <option value="._보습학원 관련 네트워크">._보습학원 관련 네트워크</option>
+                            <option value="._보험사 관련 네트워크">._보험사 관련 네트워크</option>
+                            <option value="._복지시설 관련 네트워크">._복지시설 관련 네트워크</option>
+                            <option value="._부동산중개 관련 네트워크">._부동산중개 관련 네트워크</option>
+                            <option value="._세무회계사무소 관련 네트워크">._세무회계사무소 관련 네트워크</option>
+                            <option value="._소프트웨어개발 관련 네트워크">._소프트웨어개발 관련 네트워크</option>
+                            <option value="._쇼핑몰 관련 네트워크">._쇼핑몰 관련 네트워크</option>
+                            <option value="._식품가공 관련 네트워크">._식품가공 관련 네트워크</option>
+                            <option value="._실내건축 관련 네트워크">._실내건축 관련 네트워크</option>
+                            <option value="._애니메이션 관련 네트워크">._애니메이션 관련 네트워크</option>
+                            <option value="._어린이집 관련 네트워크">._어린이집 관련 네트워크</option>
+                            <option value="._엔터테인먼트 관련 네트워크">._엔터테인먼트 관련 네트워크</option>
+                            <option value="._예식장·웨딩홀 관련 네트워크">._예식장·웨딩홀 관련 네트워크</option>
+                            <option value="._웹에이전시 관련 네트워크">._웹에이전시 관련 네트워크</option>
+                            <option value="._유통업 관련 네트워크">._유통업 관련 네트워크</option>
+                            <option value="._자동차부품 관련 네트워크">._자동차부품 관련 네트워크</option>
+                            <option value="._전자 관련 네트워크">._전자 관련 네트워크</option>
+                            <option value="._정보보안 관련 네트워크">._정보보안 관련 네트워크</option>
+                            <option value="._캐피탈 관련 네트워크">._캐피탈 관련 네트워크</option>
+                            <option value="._컨텐츠제공 관련 네트워크">._컨텐츠제공 관련 네트워크</option>
+                            <option value="._통신 관련 네트워크">._통신 관련 네트워크</option>
+                            <option value="._판매 관련 네트워크">._판매 관련 네트워크</option>
+                            <option value="._피부과 관련 네트워크">._피부과 관련 네트워크</option>
+                            <option value="._피부관리 관련 네트워크">._피부관리 관련 네트워크</option>
+                            <option value="._하드웨어 관련 네트워크">._하드웨어 관련 네트워크</option>
+                            <option value="._헤드헌팅 관련 네트워크">._헤드헌팅 관련 네트워크</option>
+                            <option value="._호텔 관련 네트워크">._호텔 관련 네트워크</option>
+                            <option value="._화장품 관련 네트워크">._화장품 관련 네트워크</option>
+                            <option value="건설회사 관련 네트워크">건설회사 관련 네트워크</option>
+                            <option value="게임개발 관련 네트워크">게임개발 관련 네트워크</option>
+                            <option value="경정비 관련 네트워크">경정비 관련 네트워크</option>
+                            <option value="광고대행사 관련 네트워크">광고대행사 관련 네트워크</option>
+                            <option value="교재제작·출판 관련 네트워크">교재제작·출판 관련 네트워크</option>
+                            <option value="대학교 관련 네트워크">대학교 관련 네트워크</option>
+                            <option value="디자인회사 관련 네트워크">디자인회사 관련 네트워크</option>
+                            <option value="문화기획 관련 네트워크">문화기획 관련 네트워크</option>
+                            <option value="법률사무소 관련 네트워크">법률사무소 관련 네트워크</option>
+                            <option value="보습학원 관련 네트워크">보습학원 관련 네트워크</option>
+                            <option value="보험사 관련 네트워크">보험사 관련 네트워크</option>
+                            <option value="복지시설 관련 네트워크">복지시설 관련 네트워크</option>
+                            <option value="부동산중개 관련 네트워크">부동산중개 관련 네트워크</option>
+                            <option value="세무회계사무소 관련 네트워크">세무회계사무소 관련 네트워크</option>
+                            <option value="소프트웨어개발 관련 네트워크">소프트웨어개발 관련 네트워크</option>
+                            <option value="쇼핑몰 관련 네트워크">쇼핑몰 관련 네트워크</option>
+                            <option value="식품가공 관련 네트워크">식품가공 관련 네트워크</option>
+                            <option value="실내건축 관련 네트워크">실내건축 관련 네트워크</option>
+                            <option value="애니메이션 관련 네트워크">애니메이션 관련 네트워크</option>
+                            <option value="어린이집 관련 네트워크">어린이집 관련 네트워크</option>
+                            <option value="엔터테인먼트 관련 네트워크">엔터테인먼트 관련 네트워크</option>
+                            <option value="예식장·웨딩홀 관련 네트워크">예식장·웨딩홀 관련 네트워크</option>
+                            <option value="웹에이전시 관련 네트워크">웹에이전시 관련 네트워크</option>
+                            <option value="유통업 관련 네트워크">유통업 관련 네트워크</option>
+                            <option value="자동차부품 관련 네트워크">자동차부품 관련 네트워크</option>
+                            <option value="전자 관련 네트워크">전자 관련 네트워크</option>
+                            <option value="정보보안 관련 네트워크">정보보안 관련 네트워크</option>
+                            <option value="캐피탈 관련 네트워크">캐피탈 관련 네트워크</option>
+                            <option value="컨텐츠제공 관련 네트워크">컨텐츠제공 관련 네트워크</option>
+                            <option value="통신 관련 네트워크">통신 관련 네트워크</option>
+                            <option value="판매 관련 네트워크">판매 관련 네트워크</option>
+                            <option value="피부과 관련 네트워크">피부과 관련 네트워크</option>
+                            <option value="피부관리 관련 네트워크">피부관리 관련 네트워크</option>
+                            <option value="하드웨어 관련 네트워크">하드웨어 관련 네트워크</option>
+                            <option value="헤드헌팅 관련 네트워크">헤드헌팅 관련 네트워크</option>
+                            <option value="호텔 관련 네트워크">호텔 관련 네트워크</option>
+                            <option value="화장품 관련 네트워크">화장품 관련 네트워크</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Moved Modal outside of contents so it works globally -->
+        <div id="myModal" class="modal" onclick="closeModal()">
+            <img id="modalImage" src="">
+        </div>
+    </div>
+    <footer>
+        <p>© 2025 AI Korea Inc. All rights reserved.</p>
+        <div class="footer-info">
+            <p>
+                <span>한국인공지능 주식회사</span> | 
+                <span>직업정보제공사업자 신고번호: J1500020250003</span>
+            </p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const imageBasePath = "./static/image";
+            const networkImage = document.getElementById('network-image');
+
+            document.getElementById('community-select').addEventListener('change', function() {
+                const communityId = this.value;
+                if (communityId === "all") {
+                    networkImage.src = `${imageBasePath}/network_all_240920.png`;
+                } else {
+                    networkImage.src = `${imageBasePath}/${communityId}.png`;
+                }
+            });
+        });
+
+        // 이미지 확대 기능
+        function openModal(src) {
+            document.getElementById("modalImage").src = src;
+            document.getElementById("myModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+    </script>
+</body>
+</html>
