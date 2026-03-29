@@ -1,0 +1,44 @@
+site:
+  name: 'JobAI'
+  site: 'https://jobai.co.kr'
+  base: '/'
+  trailingSlash: false
+
+  googleSiteVerificationId: ''
+
+# Default SEO metadata
+metadata:
+  title:
+    default: 'JobAI - AI & 빅데이터 인력 수요 인사이트'
+    template: '%s'
+  description: 'AI & 빅데이터 기반 인력 수요 및 현황 인사이트 대시보드. 자동차, IT, 건설, 게임 등 산업별 채용 동향 분석 제공.'
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    site_name: 'JobAI'
+    images:
+      - url: '/images/jobai/aik_logo.png'
+        width: 1200
+        height: 628
+    type: website
+  twitter:
+    handle: '@jobai'
+    site: '@jobai'
+    cardType: summary_large_image
+
+i18n:
+  language: ko
+  textDirection: ltr
+
+apps:
+  blog:
+    isEnabled: false
+
+analytics:
+  vendors:
+    googleAnalytics:
+      id: 'G-XRSZWXZB70'
+
+ui:
+  theme: 'system'

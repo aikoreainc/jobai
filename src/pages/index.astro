@@ -1,0 +1,264 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Content from '~/components/widgets/Content.astro';
+
+const metadata = {
+  title: 'JobAI - AI & 빅데이터 인력 수요 인사이트',
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+  <Hero
+    tagline="Job Market Insights"
+    title="AI & 빅데이터 기반 인력 수요 및 현황 인사이트"
+    subtitle="AI Korea Inc. 에서 제공하는 데이터 기반의 산업별, 지역별, 직무별 채용 동향 대시보드입니다. 모던하고 직관적인 뷰를 통해 빠르고 정확한 의사결정을 지원합니다."
+    actions={[
+      { variant: 'primary', text: '인사이트 보기', href: '#insights' },
+    ]}
+  />
+
+  <!-- Status Insights (Content) **************** -->
+  <Content
+    id="insights"
+    tagline="Trends"
+    title="주요 산업 기술 및 트렌드 현황"
+    items={[
+      {
+        title: '자동차 및 AS 관련 산업',
+        description: 'A·S센터, 주유·LPG, 중정비 등이 주요 기술로 언급됨. 자동차 및 관련 유지보수 서비스에서 전통적인 자동차 정비 기술 수요가 지속됨.',
+        icon: 'tabler:car',
+      },
+      {
+        title: 'IT 컨설팅',
+        description: '데이터 웨어하우징(DW) 및 시스템 셋업이 중요한 기술로 부각됨. 기업의 데이터 관리 및 분석 역량이 핵심.',
+        icon: 'tabler:device-laptop',
+      },
+      {
+        title: '가구·목재·제지 산업',
+        description: '부엌가구, 가구 등의 맞춤형 가구 제작 기술 수요가 집중됨.',
+        icon: 'tabler:box',
+      },
+      {
+        title: '건설·건축·토목·시공',
+        description: '대형 건설사(1군 건설)에서 요구되는 역량 및 도로항만 관련 인프라 개발 수요 증가.',
+        icon: 'tabler:building',
+      },
+      {
+        title: '게임 산업',
+        description: '게임 개발 및 게임 시나리오 작성 기술이 핵심 역량으로 평가됨.',
+        icon: 'tabler:device-gamepad',
+      },
+    ]}
+  >
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">핵심 요약</h3>
+      <p class="text-muted dark:text-slate-400">
+        현재 채용 시장에서는 데이터 관리/분석, 자동차 정비, 기계설비 등 산업 특화 기술이 여전히 크게 작용하며, 창의성과 문제 해결 능력이 핵심 평가 요소로 자리잡고 있습니다.
+      </p>
+    </Fragment>
+  </Content>
+
+  <!-- Charts Dashboard (Custom Grid) ************** -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 lg:py-20 text-center" id="statistics">
+    <h2 class="text-3xl font-bold tracking-tight sm:text-4xl mb-8">주요 채용 통계 현황</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Card 1 -->
+      <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl overflow-hidden hover:-translate-y-1 transition duration-300">
+        <div class="p-6 border-b border-slate-100 dark:border-slate-800">
+          <h3 class="text-xl font-bold mb-0">지역별 채용 공고 수</h3>
+        </div>
+        <div class="p-4 flex justify-center bg-gray-50 dark:bg-slate-950">
+          <img src="/images/jobai/region_fig.png" alt="지역별 채용 공고" class="max-h-[300px] object-contain rounded-lg cursor-pointer transition transform hover:scale-105" onclick="openModal(this.src)" />
+        </div>
+      </div>
+      
+      <!-- Card 2 -->
+      <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl overflow-hidden hover:-translate-y-1 transition duration-300">
+        <div class="p-6 border-b border-slate-100 dark:border-slate-800">
+          <h3 class="text-xl font-bold mb-0">산업별 채용 비율</h3>
+        </div>
+        <div class="p-4 flex justify-center bg-gray-50 dark:bg-slate-950">
+          <img src="/images/jobai/industry_fig.png" alt="산업별 채용 비율" class="max-h-[300px] object-contain rounded-lg cursor-pointer transition transform hover:scale-105" onclick="openModal(this.src)" />
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl overflow-hidden hover:-translate-y-1 transition duration-300">
+        <div class="p-6 border-b border-slate-100 dark:border-slate-800">
+          <h3 class="text-xl font-bold mb-0">직무 카테고리 분포</h3>
+        </div>
+        <div class="p-4 flex justify-center bg-gray-50 dark:bg-slate-950">
+          <img src="/images/jobai/category_fig.png" alt="직무 카테고리 분포" class="max-h-[300px] object-contain rounded-lg cursor-pointer transition transform hover:scale-105" onclick="openModal(this.src)" />
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl overflow-hidden hover:-translate-y-1 transition duration-300">
+        <div class="p-6 border-b border-slate-100 dark:border-slate-800">
+          <h3 class="text-xl font-bold mb-0">급여 분포</h3>
+        </div>
+        <div class="p-4 flex justify-center bg-gray-50 dark:bg-slate-950">
+          <img src="/images/jobai/salary_fig.png" alt="급여 분포" class="max-h-[300px] object-contain rounded-lg cursor-pointer transition transform hover:scale-105" onclick="openModal(this.src)" />
+        </div>
+      </div>
+      
+      <!-- Card 5 (Full width) -->
+      <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl overflow-hidden hover:-translate-y-1 transition duration-300 md:col-span-2">
+        <div class="p-6 border-b border-slate-100 dark:border-slate-800">
+          <h3 class="text-xl font-bold mb-0">경력 요구사항 분포</h3>
+        </div>
+        <div class="p-4 flex justify-center bg-gray-50 dark:bg-slate-950">
+          <img src="/images/jobai/career_fig.png" alt="경력 요구사항 분포" class="max-h-[350px] object-contain rounded-lg cursor-pointer transition transform hover:scale-105" onclick="openModal(this.src)" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Network Graph Section -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 lg:py-20" id="network">
+    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 sm:p-12 shadow-2xl">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl mb-4">워드 네트워크 매핑</h2>
+        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">드롭다운 메뉴에서 세부 그룹을 선택하여 각 산업별 주요 키워드 간의 연관성과 네트워크 커뮤니티 전개 현황을 확인하세요.</p>
+      </div>
+      
+      <div class="flex flex-col lg:flex-row gap-8 items-center bg-white dark:bg-slate-950 rounded-2xl overflow-hidden shadow-lg p-6 lg:p-10 border border-indigo-100 dark:border-slate-800">
+        <div class="w-full lg:w-1/3 space-y-6">
+          <div>
+              <label for="community-select" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">세부 산업 그룹 필터</label>
+              <select id="community-select" class="block w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm rounded-xl shadow-sm transition">
+                  <option value="all">전체 네트워크</option>
+                  <option value="._건설회사 관련 네트워크">._건설회사 관련 네트워크</option>
+                  <option value="._게임개발 관련 네트워크">._게임개발 관련 네트워크</option>
+                  <option value="._경정비 관련 네트워크">._경정비 관련 네트워크</option>
+                  <option value="._광고대행사 관련 네트워크">._광고대행사 관련 네트워크</option>
+                  <option value="._교재제작·출판 관련 네트워크">._교재제작·출판 관련 네트워크</option>
+                  <option value="._대학교 관련 네트워크">._대학교 관련 네트워크</option>
+                  <option value="._디자인회사 관련 네트워크">._디자인회사 관련 네트워크</option>
+                  <option value="._문화기획 관련 네트워크">._문화기획 관련 네트워크</option>
+                  <option value="._법률사무소 관련 네트워크">._법률사무소 관련 네트워크</option>
+                  <option value="._보습학원 관련 네트워크">._보습학원 관련 네트워크</option>
+                  <option value="._보험사 관련 네트워크">._보험사 관련 네트워크</option>
+                  <option value="._복지시설 관련 네트워크">._복지시설 관련 네트워크</option>
+                  <option value="._부동산중개 관련 네트워크">._부동산중개 관련 네트워크</option>
+                  <option value="._세무회계사무소 관련 네트워크">._세무회계사무소 관련 네트워크</option>
+                  <option value="._소프트웨어개발 관련 네트워크">._소프트웨어개발 관련 네트워크</option>
+                  <option value="._쇼핑몰 관련 네트워크">._쇼핑몰 관련 네트워크</option>
+                  <option value="._식품가공 관련 네트워크">._식품가공 관련 네트워크</option>
+                  <option value="._실내건축 관련 네트워크">._실내건축 관련 네트워크</option>
+                  <option value="._애니메이션 관련 네트워크">._애니메이션 관련 네트워크</option>
+                  <option value="._어린이집 관련 네트워크">._어린이집 관련 네트워크</option>
+                  <option value="._엔터테인먼트 관련 네트워크">._엔터테인먼트 관련 네트워크</option>
+                  <option value="._예식장·웨딩홀 관련 네트워크">._예식장·웨딩홀 관련 네트워크</option>
+                  <option value="._웹에이전시 관련 네트워크">._웹에이전시 관련 네트워크</option>
+                  <option value="._유통업 관련 네트워크">._유통업 관련 네트워크</option>
+                  <option value="._자동차부품 관련 네트워크">._자동차부품 관련 네트워크</option>
+                  <option value="._전자 관련 네트워크">._전자 관련 네트워크</option>
+                  <option value="._정보보안 관련 네트워크">._정보보안 관련 네트워크</option>
+                  <option value="._캐피탈 관련 네트워크">._캐피탈 관련 네트워크</option>
+                  <option value="._컨텐츠제공 관련 네트워크">._컨텐츠제공 관련 네트워크</option>
+                  <option value="._통신 관련 네트워크">._통신 관련 네트워크</option>
+                  <option value="._판매 관련 네트워크">._판매 관련 네트워크</option>
+                  <option value="._피부과 관련 네트워크">._피부과 관련 네트워크</option>
+                  <option value="._피부관리 관련 네트워크">._피부관리 관련 네트워크</option>
+                  <option value="._하드웨어 관련 네트워크">._하드웨어 관련 네트워크</option>
+                  <option value="._헤드헌팅 관련 네트워크">._헤드헌팅 관련 네트워크</option>
+                  <option value="._호텔 관련 네트워크">._호텔 관련 네트워크</option>
+                  <option value="._화장품 관련 네트워크">._화장품 관련 네트워크</option>
+                  <option value="건설회사 관련 네트워크">건설회사 관련 네트워크</option>
+                  <option value="게임개발 관련 네트워크">게임개발 관련 네트워크</option>
+                  <option value="경정비 관련 네트워크">경정비 관련 네트워크</option>
+                  <option value="광고대행사 관련 네트워크">광고대행사 관련 네트워크</option>
+                  <option value="교재제작·출판 관련 네트워크">교재제작·출판 관련 네트워크</option>
+                  <option value="대학교 관련 네트워크">대학교 관련 네트워크</option>
+                  <option value="디자인회사 관련 네트워크">디자인회사 관련 네트워크</option>
+                  <option value="문화기획 관련 네트워크">문화기획 관련 네트워크</option>
+                  <option value="법률사무소 관련 네트워크">법률사무소 관련 네트워크</option>
+                  <option value="보습학원 관련 네트워크">보습학원 관련 네트워크</option>
+                  <option value="보험사 관련 네트워크">보험사 관련 네트워크</option>
+                  <option value="복지시설 관련 네트워크">복지시설 관련 네트워크</option>
+                  <option value="부동산중개 관련 네트워크">부동산중개 관련 네트워크</option>
+                  <option value="세무회계사무소 관련 네트워크">세무회계사무소 관련 네트워크</option>
+                  <option value="소프트웨어개발 관련 네트워크">소프트웨어개발 관련 네트워크</option>
+                  <option value="쇼핑몰 관련 네트워크">쇼핑몰 관련 네트워크</option>
+                  <option value="식품가공 관련 네트워크">식품가공 관련 네트워크</option>
+                  <option value="실내건축 관련 네트워크">실내건축 관련 네트워크</option>
+                  <option value="애니메이션 관련 네트워크">애니메이션 관련 네트워크</option>
+                  <option value="어린이집 관련 네트워크">어린이집 관련 네트워크</option>
+                  <option value="엔터테인먼트 관련 네트워크">엔터테인먼트 관련 네트워크</option>
+                  <option value="예식장·웨딩홀 관련 네트워크">예식장·웨딩홀 관련 네트워크</option>
+                  <option value="웹에이전시 관련 네트워크">웹에이전시 관련 네트워크</option>
+                  <option value="유통업 관련 네트워크">유통업 관련 네트워크</option>
+                  <option value="자동차부품 관련 네트워크">자동차부품 관련 네트워크</option>
+                  <option value="전자 관련 네트워크">전자 관련 네트워크</option>
+                  <option value="정보보안 관련 네트워크">정보보안 관련 네트워크</option>
+                  <option value="캐피탈 관련 네트워크">캐피탈 관련 네트워크</option>
+                  <option value="컨텐츠제공 관련 네트워크">컨텐츠제공 관련 네트워크</option>
+                  <option value="통신 관련 네트워크">통신 관련 네트워크</option>
+                  <option value="판매 관련 네트워크">판매 관련 네트워크</option>
+                  <option value="피부과 관련 네트워크">피부과 관련 네트워크</option>
+                  <option value="피부관리 관련 네트워크">피부관리 관련 네트워크</option>
+                  <option value="하드웨어 관련 네트워크">하드웨어 관련 네트워크</option>
+                  <option value="헤드헌팅 관련 네트워크">헤드헌팅 관련 네트워크</option>
+                  <option value="호텔 관련 네트워크">호텔 관련 네트워크</option>
+                  <option value="화장품 관련 네트워크">화장품 관련 네트워크</option>
+              </select>
+          </div>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 italic">※ 이미지를 클릭하시면 확대해서 볼 수 있습니다.</p>
+        </div>
+        <div class="w-full lg:w-2/3 flex justify-center items-center bg-gray-50 dark:bg-slate-900 rounded-xl p-4 min-h-[300px]">
+          <img id="network-image" src="/images/jobai/network_all_240920.png" alt="워드 네트워크 맵" class="max-h-[500px] object-contain rounded-lg shadow-sm cursor-pointer transition transform hover:scale-105" onclick="openModal(this.src)" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global Modal for Image Enlarge -->
+  <div id="imageModal" class="fixed inset-0 z-50 hidden bg-slate-900/90 backdrop-blur-sm flex justify-center items-center p-4 transition-opacity duration-300" onclick="closeModal()">
+    <div class="relative max-w-7xl w-full flex justify-center items-center" onclick="event.stopPropagation()">
+      <button class="absolute -top-14 right-2 text-white hover:text-gray-300 transition text-5xl leading-none" onclick="closeModal()">&times;</button>
+      <img id="modalImageRender" src="" class="max-h-[90vh] object-contain rounded-xl shadow-2xl bg-white dark:bg-slate-950 p-2" />
+    </div>
+  </div>
+
+  <script is:inline>
+    // Document setup for interactive components
+    document.addEventListener('DOMContentLoaded', function() {
+      // Network graph switcher
+      const selectEl = document.getElementById('community-select');
+      const imgEl = document.getElementById('network-image');
+      if (selectEl && imgEl) {
+        selectEl.addEventListener('change', function(e) {
+          const val = e.target.value;
+          if (val === 'all') {
+            imgEl.src = '/images/jobai/network_all_240920.png';
+          } else {
+            imgEl.src = '/images/jobai/' + val + '.png';
+          }
+        });
+      }
+    });
+
+    // Modal Image Enlarger
+    window.openModal = function(src) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImageRender');
+      if (modal && modalImg) {
+        modalImg.src = src;
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Stop background scrolling
+      }
+    };
+
+    window.closeModal = function() {
+      const modal = document.getElementById('imageModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = ''; // Resume background scrolling
+      }
+    };
+  </script>
+</Layout>
