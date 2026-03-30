@@ -2,10 +2,10 @@
 import type { Form as Props } from '~/types';
 import Button from '~/components/ui/Button.astro';
 
-const { inputs, textarea, disclaimer, button = 'Contact us', description = '' } = Astro.props;
+const { inputs, textarea, disclaimer, button = 'Contact us', description = '', mailto } = Astro.props;
 ---
 
-<form>
+<form class:list={[{ 'js-mailto-contact': !!mailto }]} novalidate={!!mailto}>
   {
     inputs &&
       inputs.map(
@@ -85,3 +85,44 @@ const { inputs, textarea, disclaimer, button = 'Contact us', description = '' } 
     )
   }
 </form>
+
+{
+  mailto && (
+    <script is:inline define:vars={{ mailtoAddress: mailto }}>
+      document.querySelectorAll('form.js-mailto-contact').forEach((form) => {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const disclaimerEl = form.querySelector('[name="disclaimer"]');
+          if (
+            disclaimerEl &&
+            disclaimerEl instanceof HTMLInputElement &&
+            disclaimerEl.type === 'checkbox' &&
+            !disclaimerEl.checked
+          ) {
+            window.alert('개인정보 수집·이용 안내에 동의해 주세요.');
+            return;
+          }
+          const fd = new FormData(form);
+          const name = String(fd.get('name') ?? '').trim();
+          const email = String(fd.get('email') ?? '').trim();
+          const message = String(fd.get('message') ?? '').trim();
+          if (!message) {
+            window.alert('문의 내용을 입력해 주세요.');
+            return;
+          }
+          const body = [
+            '이름: ' + (name || '(미입력)'),
+            '회신 받을 메일: ' + (email || '(미입력)'),
+            '',
+            '— 문의 내용 —',
+            '',
+            message,
+          ].join('\n');
+          const subject = encodeURIComponent('[JobAI 문의] ' + (name || '고객'));
+          window.location.href =
+            'mailto:' + mailtoAddress + '?subject=' + subject + '&body=' + encodeURIComponent(body);
+        });
+      });
+    </script>
+  )
+}

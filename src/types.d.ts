@@ -210,6 +210,8 @@ export interface Form {
   disclaimer?: Disclaimer;
   button?: string;
   description?: string;
+  /** 설정 시 제출 시 사용자 기기의 메일 앱으로 본문이 채워진 상태로 열립니다(백엔드 불필요). */
+  mailto?: string;
 }
 
 // WIDGETS

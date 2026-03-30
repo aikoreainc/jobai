@@ -15,7 +15,7 @@ export const headerData = {
       href: '/#network',
     },
   ],
-  actions: [{ text: '문의하기', href: '#', variant: 'primary' }],
+  actions: [{ text: '문의하기', href: getPermalink('/contact'), variant: 'primary' }],
 };
 
 export const footerData = {

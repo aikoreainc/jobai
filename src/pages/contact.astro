@@ -4,75 +4,70 @@ import HeroText from '~/components/widgets/HeroText.astro';
 import ContactUs from '~/components/widgets/Contact.astro';
 import Features2 from '~/components/widgets/Features2.astro';
 
+const companyEmail = 'aikoreainc@gmail.com';
+
 const metadata = {
-  title: 'Contact',
+  title: '문의하기',
+  description: 'JobAI 서비스 및 AI Korea Inc. 관련 문의',
 };
 ---
 
 <Layout metadata={metadata}>
-  <!-- HeroText Widget ******************* -->
+  <HeroText tagline="Contact" title="문의하기" subtitle="아래 양식을 작성하시거나 메일로 연락 주시면 됩니다." />
 
-  <HeroText tagline="Contact" title="Let's Connect!" />
+  <div class="max-w-xl mx-auto px-4 -mt-6 mb-10 text-center text-muted dark:text-slate-400">
+    <p class="text-sm mb-2">대표 메일</p>
+    <a
+      class="text-primary hover:underline font-medium break-all"
+      href={`mailto:${companyEmail}`}
+    >
+      {companyEmail}
+    </a>
+    <p class="text-xs mt-3 text-slate-500 dark:text-slate-500">
+      양식 제출 시 사용 중인 기기의 메일 앱이 열리며, 수신인은 위 주소로 지정됩니다. 메일 앱이 없는 환경이라면 위 주소로 직접 보내 주세요.
+    </p>
+  </div>
 
   <ContactUs
     id="form"
-    title="Drop us a message today!"
-    subtitle="For quicker answers, explore our FAQs section. You may find the solution you're looking  for right there! If not, our support team is delighted to help you."
+    title="메시지 보내기"
+    subtitle="이름·회신 메일·문의 내용을 남겨 주시면 검토 후 회신 드립니다."
+    mailto={companyEmail}
     inputs={[
-      {
-        type: 'text',
-        name: 'name',
-        label: 'Name',
-      },
-      {
-        type: 'email',
-        name: 'email',
-        label: 'Email',
-      },
+      { type: 'text', name: 'name', label: '이름' },
+      { type: 'email', name: 'email', label: '회신 받을 메일', autocomplete: 'email' },
     ]}
     textarea={{
-      label: 'Message',
+      label: '문의 내용',
+      name: 'message',
+      placeholder: '문의 사항을 자유롭게 적어 주세요.',
     }}
     disclaimer={{
       label:
-        'By submitting this contact form, you acknowledge and agree to the collection of your personal information.',
+        '제출하시면 문의 처리를 위해 입력하신 정보가 수집·이용되는 것에 동의하는 것으로 간주됩니다.',
     }}
-    description="Our support team typically responds within 24 business hours."
+    button="메일 앱으로 보내기"
+    description="회신은 영업일 기준으로 순차 안내드릴 수 있습니다."
   />
 
-  <!-- Features2 Widget ************** -->
-
   <Features2
-    title="We are here to help!"
+    title="안내"
     items={[
       {
-        title: 'General support',
-        description: `Chat with us for inquiries related to account management, website navigation, payment issues, accessing purchased templates or general questions about the website's functionality.`,
-      },
-      {
-        title: 'Contact sales',
+        title: '문의 범위',
         description:
-          'Chat with us for questions about purchases, customization options, licensing for commercial use, inquiries about specific template, etc.',
+          'JobAI 대시보드·데이터 인사이트·협업 및 제휴 등 업무 관련 문의를 받고 있습니다.',
+        icon: 'tabler:message-2',
       },
       {
-        title: 'Technical support',
-        description:
-          'Chat with us when facing issues like template installation, problems editing difficulties, compatibility issues with software or download errors, or other technical challenges related to using the templates.',
+        title: '회사 웹사이트',
+        description: 'AI Korea Inc. 소개는 공식 홈페이지(https://aikoreainc.com)에서 확인하실 수 있습니다.',
+        icon: 'tabler:world',
       },
       {
-        title: 'Phone',
-        description: '+1 (234) 567-890',
-        icon: 'tabler:headset',
-      },
-      {
-        title: 'Email',
-        description: 'contact@support.com',
+        title: '이메일',
+        description: companyEmail,
         icon: 'tabler:mail',
-      },
-      {
-        title: 'Location',
-        description: '1234 Lorem Ipsum St, 12345, Miami, EEUU',
-        icon: 'tabler:map-pin',
       },
     ]}
   />
