@@ -1,9 +1,15 @@
 ---
 import { SITE } from 'astrowind:config';
+// 이미지를 직접 가져옵니다. 
+// 경로 끝에 '?'를 붙이지 않아도 되지만, Astro 설정에 따라 ~/assets/... 형태를 사용할 수도 있습니다.
+import logoImg from '~/assets/images/aik_logo.png';
+import { Image } from 'astro:assets';
 ---
 
-<span
-  class="self-center ml-2 rtl:ml-0 rtl:mr-2 text-2xl md:text-xl font-bold text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-2"
->
-  <img src="/images/jobai/aik_logo.png" alt="AI Korea Logo" class="h-10 w-auto" />
+<span class="self-center ml-2 rtl:ml-0 rtl:mr-2 text-2xl md:text-xl font-bold text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-2">
+  <Image
+    src={logoImg}
+    alt="AI Korea Logo"
+    class="h-10 w-auto"
+  />
 </span>

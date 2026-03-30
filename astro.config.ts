@@ -71,8 +71,13 @@ export default defineConfig({
     }),
   ],
 
+  // [수정된 부분] 외부 이미지 도메인 허용 리스트 업데이트
   image: {
-    domains: ['cdn.pixabay.com'],
+    domains: [
+      'cdn.pixabay.com',
+      'plus.unsplash.com',
+      'images.unsplash.com'
+    ],
   },
 
   markdown: {

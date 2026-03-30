@@ -18,7 +18,7 @@ metadata:
   openGraph:
     site_name: 'JobAI'
     images:
-      - url: '/images/jobai/aik_logo.png'
+      - url: '~/assets/images/aik_logo.png' # 경로를 src/assets 쪽으로 변경
         width: 1200
         height: 628
     type: website
